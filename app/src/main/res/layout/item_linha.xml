@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:padding="0dp">
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="1"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"/>
+   <!-- <View
+        android:layout_width="95px"
+        android:layout_height="3px"
+        android:layout_marginTop="20dp"
+        android:background="#ccc"/>-->
+    <View
+        android:layout_width="3px"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="95px"
+        android:background="#ccc"/>
+
+</FrameLayout>

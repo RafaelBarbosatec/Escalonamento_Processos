@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list_nome_processo"
+        android:layout_width="70px"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        android:scrollbars="none"
+        android:paddingTop="60px">
+
+    </ListView>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:id="@+id/ll_linhas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </HorizontalScrollView>
+</LinearLayout>
