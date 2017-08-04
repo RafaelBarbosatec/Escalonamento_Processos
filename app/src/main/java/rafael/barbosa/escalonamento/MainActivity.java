@@ -1,24 +1,18 @@
 package rafael.barbosa.escalonamento;
 
-import android.graphics.Color;
-import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rafael.barbosa.escalonamento.Model.Processo;
+import rafael.barbosa.escalonamento.Model.ItemTimeLine;
 import rafael.barbosa.escalonamento.util.TimeLineView;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,33 +38,30 @@ public class MainActivity extends AppCompatActivity {
 
         bt_start = (Button) findViewById(R.id.bt_start);
 
-        List<Processo> processoList = new ArrayList<>();
+        List<ItemTimeLine> itemTimeLineList = new ArrayList<>();
 
-        Processo processo = new Processo();
-        processo.setPosition(1);
-        processo.setTempo(1);
-        processo.setSobrecarga(0);
-        processoList.add(processo);
+        ItemTimeLine itemTimeLine = new ItemTimeLine();
+        itemTimeLine.setPosition(1);
+        itemTimeLine.setTempo(2);
+        itemTimeLine.setTempo_chegada(1);
+        itemTimeLine.setSobrecarga(1);
+        itemTimeLineList.add(itemTimeLine);
 
-        processo = new Processo();
-        processo.setPosition(2);
-        processo.setTempo(2);
-        processo.setSobrecarga(1);
-        processoList.add(processo);
+        itemTimeLine = new ItemTimeLine();
+        itemTimeLine.setPosition(3);
+        itemTimeLine.setTempo(2);
+        itemTimeLine.setTempo_chegada(6);
+        itemTimeLine.setSobrecarga(0);
+        itemTimeLineList.add(itemTimeLine);
 
-        processo = new Processo();
-        processo.setPosition(3);
-        processo.setTempo(2);
-        processo.setSobrecarga(0);
-        processoList.add(processo);
+        itemTimeLine = new ItemTimeLine();
+        itemTimeLine.setPosition(2);
+        itemTimeLine.setTempo(1);
+        itemTimeLine.setTempo_chegada(9);
+        itemTimeLine.setSobrecarga(1);
+        itemTimeLineList.add(itemTimeLine);
 
-        processo = new Processo();
-        processo.setPosition(1);
-        processo.setTempo(2);
-        processo.setSobrecarga(1);
-        processoList.add(processo);
-
-        timeLine.setProcessoList(processoList);
+        timeLine.setProcessoList(itemTimeLineList);
 
 
         bt_start.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
         bt_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Processo processo = new Processo();
-                processo.setPosition(aux);
-                processo.setTempo(2);
-                processo.setSobrecarga(1);
-                showProcesso(processo, new TimeProcessoListern() {
+                ItemTimeLine itemTimeLine = new ItemTimeLine();
+                itemTimeLine.setPosition(aux);
+                itemTimeLine.setTempo(2);
+                itemTimeLine.setSobrecarga(1);
+                showProcesso(itemTimeLine, new TimeProcessoListern() {
                     @Override
                     public void finish() {
 
@@ -106,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void showProcesso(final Processo processo, final TimeProcessoListern timeProcessoListern){
+    /*private void showProcesso(final ItemTimeLine processo, final TimeProcessoListern timeProcessoListern){
 
         final int[] count = {0};
         int margemTop = processo.getPosition()*60;
@@ -159,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }.start();
-    }
+    }*/
 }
 
 interface TimeProcessoListern{

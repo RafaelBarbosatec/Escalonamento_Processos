@@ -23,6 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="0dp">
+            <TextView
+                android:id="@+id/timeline"
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:background="@color/colorAccent"/>
 
             <LinearLayout
                 android:id="@+id/ll_linhas"
