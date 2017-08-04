@@ -62,8 +62,11 @@ public class MainActivity extends AppCompatActivity {
         itemTimeLineList.add(itemTimeLine);
 
         timeLine.setProcessoList(itemTimeLineList);
-
-
+        List<String> nomes = new ArrayList<>();
+        nomes.add("A");
+        nomes.add("B");
+        nomes.add("C");
+        timeLine.setNomesProcessos(nomes);
         bt_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,8 +154,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
     }*/
-}
-
-interface TimeProcessoListern{
-    void finish();
 }

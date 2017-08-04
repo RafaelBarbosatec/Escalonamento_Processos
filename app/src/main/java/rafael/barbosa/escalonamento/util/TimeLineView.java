@@ -5,11 +5,14 @@ import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rafael.barbosa.escalonamento.Model.ItemTimeLine;
@@ -21,19 +24,21 @@ import rafael.barbosa.escalonamento.R;
 
 public class TimeLineView extends LinearLayout {
 
-    private FrameLayout frame_layout;
     private HorizontalScrollView horizontal_scroll;
-    private LinearLayout ll_linhas;
+    private TextView tv_tempo, tv_sobrecarga, tv_espaco;
+    private FrameLayout.LayoutParams param;
+    private FrameLayout.LayoutParams paramLinha;
+    private FrameLayout frame_layout;
+    private ListView list_nome_processo;
+    private ArrayAdapter<String> adapterNomes;
     private TextView timeline;
     private View linha;
     private LayoutInflater inflater;
-    private TextView tv_tempo, tv_sobrecarga, tv_espaco;
-    private FrameLayout.LayoutParams param;
-    private LinearLayout.LayoutParams paramLinha;
-    int marginaux = 0;
-    int countLine = 1;
-    int countSegundos = 1;
-    int aux_sequencia = 0;
+    int marginaux = 0; // auxilia a saber qual a distacia a esquerda deve ta o item
+    int countLine = 1; // conta os segundos da simulação das linhas(topo)
+    int countSegundos = 1; // conta os segundos individuais de cada item ao simular
+    int aux_sequencia = 0; // controla quantidade de itens na simulação
+    private Context context;
     private List<ItemTimeLine> itemTimeLineList;
 
     public TimeLineView(Context context) {
@@ -51,16 +56,23 @@ public class TimeLineView extends LinearLayout {
     }
 
     private void initControl(Context context, AttributeSet attrs) {
+        this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.timeline_layout, this);
         assignUiElements();
     }
 
     private void assignUiElements() {
+        list_nome_processo = findViewById(R.id.list_nome_processo);
         frame_layout = findViewById(R.id.frame_layout);
         horizontal_scroll =  findViewById(R.id.horizontal_scroll);
-        ll_linhas =  findViewById(R.id.ll_linhas);
         timeline = findViewById(R.id.timeline);
+    }
+
+
+    public void setNomesProcessos(List<String> nomesProcessos) {
+        adapterNomes = new ArrayAdapter<String>(context,R.layout.simple_list_item_custom, android.R.id.text1, nomesProcessos);
+        list_nome_processo.setAdapter(adapterNomes);
     }
 
     public void addProcesso(final ItemTimeLine itemTimeLine, final TimeProcessoListern timeProcessoListern){
@@ -70,17 +82,18 @@ public class TimeLineView extends LinearLayout {
         final int timeAntSobrecarga = (time - ((itemTimeLine.getTempo()+(itemTimeLine.getTempo_chegada() - (countLine-1)))*1000));
 
         linha = inflater.inflate(R.layout.item_linha, null);
-        paramLinha = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        paramLinha = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
         View item = inflater.inflate(R.layout.item_escalonamento, null);
+        param = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+
         tv_tempo = item.findViewById(R.id.tv_tempo);
         tv_sobrecarga = item.findViewById(R.id.tv_sobrecarga);
         tv_espaco = item.findViewById(R.id.tv_espaco);
 
-        param = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-
         marginaux = frame_layout.getWidth();
-        param.leftMargin = marginaux;
 
+        param.leftMargin = marginaux;
         param.topMargin = margemTop;
 
         frame_layout.addView(item,param);
@@ -101,11 +114,13 @@ public class TimeLineView extends LinearLayout {
                     tv_espaco.setWidth(tv_espaco.getWidth() + 5);
                 }
 
+                //Atualiza linha timiline acima do gráfico
                 timeline.setWidth(timeline.getWidth() + 5);
 
+                //Controca quando adicionar linha vertical
                 if (l < (time-(countSegundos*1000))){
                     linha = inflater.inflate(R.layout.item_linha, null);
-                    paramLinha = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    paramLinha = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
                     paramLinha.leftMargin = timeline.getWidth();
                     ((TextView)linha.findViewById(R.id.tv_count)).setText(countLine+"");
                     frame_layout.addView(linha,paramLinha);
@@ -113,14 +128,17 @@ public class TimeLineView extends LinearLayout {
                     countSegundos++;
                 }
 
+                //Força o scroll sempre seguir o progresso a direita
                 horizontal_scroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
             }
 
             @Override
             public void onFinish() {
+
                 countSegundos = 1;
+
                 linha = inflater.inflate(R.layout.item_linha, null);
-                paramLinha = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                paramLinha = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
                 paramLinha.leftMargin = timeline.getWidth();
                 ((TextView)linha.findViewById(R.id.tv_count)).setText(countLine+"");
                 frame_layout.addView(linha,paramLinha);

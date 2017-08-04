@@ -9,6 +9,8 @@
         android:layout_width="70px"
         android:layout_height="match_parent"
         android:elevation="4dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:scrollbars="none"
         android:paddingTop="60px">
 
@@ -33,7 +35,58 @@
                 android:id="@+id/ll_linhas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="60px"
+                    android:background="#6ccc"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:layout_marginTop="57px"
+                    android:background="#6ccc"/>
 
             </LinearLayout>
 
