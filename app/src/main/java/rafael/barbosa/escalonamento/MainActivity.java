@@ -17,17 +17,6 @@ import rafael.barbosa.escalonamento.util.TimeLineView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FrameLayout frame_layout;
-    int marginaux = 0;
-    int aux = 1;
-    int countLine = 1;
-    int countToLines = 0;
-    private FrameLayout.LayoutParams param;
-    private LinearLayout ll_linhas;
-    private View linha;
-    private TextView tv_tempo, tv_sobrecarga;
-    private HorizontalScrollView horizontal_scroll;
-    private Button bt_start;
     private TimeLineView timeLine;
 
     @Override
@@ -35,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         timeLine = (TimeLineView) findViewById(R.id.timeLine);
-
-        bt_start = (Button) findViewById(R.id.bt_start);
 
         List<ItemTimeLine> itemTimeLineList = new ArrayList<>();
 
@@ -67,12 +54,7 @@ public class MainActivity extends AppCompatActivity {
         nomes.add("B");
         nomes.add("C");
         timeLine.setNomesProcessos(nomes);
-        bt_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                timeLine.startSequencia();
-            }
-        });
+        timeLine.startSequencia();
 
        /* frame_layout = (FrameLayout) findViewById(R.id.frame_layout);
         horizontal_scroll = (HorizontalScrollView) findViewById(R.id.horizontal_scroll);
