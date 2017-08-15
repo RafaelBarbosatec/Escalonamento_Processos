@@ -12,8 +12,12 @@
         <item name="android:windowEnterAnimation">@anim/dialog_roll_from_down</item>
 
         <item name="android:windowExitAnimation">@anim/dialog_roll_to_down</item>
-
-
     </style>
+
+    <style name="AppCompat.TelaCheia" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
 </resources>

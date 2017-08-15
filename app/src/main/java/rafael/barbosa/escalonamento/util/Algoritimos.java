@@ -194,9 +194,11 @@ public class Algoritimos {
         respAlgoritimo.setTurnaround(turnaround);
 
         return respAlgoritimo;
+
     }
 
     private static int calcularQtdItens(List<Processo> processosList) {
+
         int soma = 0;
 
         for (Processo p : processosList){

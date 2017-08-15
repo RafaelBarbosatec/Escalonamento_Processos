@@ -108,15 +108,20 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
         bt_iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String quantum = ed_quantum.getText().toString().trim();
-                if (!quantum.equals(""))
-                QUANTUM = Integer.parseInt(quantum);
 
-                String sobrecarga = ed_sobrecarga.getText().toString().trim();
-                if (!sobrecarga.equals(""))
-                    SOBRECARGA = Integer.parseInt(sobrecarga);
+                if (processoAdapter.getItemCount() <= 10) {
+                    String quantum = ed_quantum.getText().toString().trim();
+                    if (!quantum.equals(""))
+                        QUANTUM = Integer.parseInt(quantum);
 
-                iniciarAlgoritimo();
+                    String sobrecarga = ed_sobrecarga.getText().toString().trim();
+                    if (!sobrecarga.equals(""))
+                        SOBRECARGA = Integer.parseInt(sobrecarga);
+
+                    iniciarAlgoritimo();
+                }else {
+                    Toast.makeText(CadastroActivity.this,"Limite de 10 processos alcançados",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
