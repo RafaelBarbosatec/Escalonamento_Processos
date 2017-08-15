@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="dialog_animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_roll_from_down</item>
+
+        <item name="android:windowExitAnimation">@anim/dialog_roll_to_down</item>
+
+
+    </style>
+
 </resources>

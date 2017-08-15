@@ -1,5 +1,6 @@
 package rafael.barbosa.escalonamento;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rafael.barbosa.escalonamento.Model.ItemTimeLine;
+import rafael.barbosa.escalonamento.util.Funcoes;
 import rafael.barbosa.escalonamento.util.TimeLineView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TimeLineView timeLine;
+    private int qtd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         List<ItemTimeLine> itemTimeLineList = new ArrayList<>();
 
-        ItemTimeLine itemTimeLine = new ItemTimeLine();
+        Intent intent = getIntent();
+        if (intent != null){
+            Bundle extras = intent.getExtras();
+            if (extras != null){
+                itemTimeLineList = extras.getParcelableArrayList("ITENS");
+                qtd = extras.getInt("QTD",0);
+            }
+        }
+
+        /*ItemTimeLine itemTimeLine = new ItemTimeLine();
         itemTimeLine.setPosition(1);
         itemTimeLine.setTempo(2);
         itemTimeLine.setTempo_chegada(1);
@@ -46,13 +58,15 @@ public class MainActivity extends AppCompatActivity {
         itemTimeLine.setTempo(1);
         itemTimeLine.setTempo_chegada(9);
         itemTimeLine.setSobrecarga(1);
-        itemTimeLineList.add(itemTimeLine);
+        itemTimeLineList.add(itemTimeLine);*/
 
         timeLine.setProcessoList(itemTimeLineList);
+
         List<String> nomes = new ArrayList<>();
-        nomes.add("A");
-        nomes.add("B");
-        nomes.add("C");
+        for (int i = 0 ; i < qtd; i ++){
+            nomes.add(Funcoes.generateNome(i));
+        }
+
         timeLine.setNomesProcessos(nomes);
         timeLine.startSequencia();
 

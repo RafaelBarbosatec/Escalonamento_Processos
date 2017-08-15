@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".CadastroActivity">
+        <activity android:name=".Cadastro.CadastroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
