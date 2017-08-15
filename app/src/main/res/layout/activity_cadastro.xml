@@ -6,104 +6,113 @@
     android:layout_height="match_parent"
     tools:context="rafael.barbosa.escalonamento.Cadastro.CadastroActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_cadastro"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:id="@+id/bt_iniciar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
-                android:text="INICIAR"/>
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/tv_algoritimo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_below="@+id/toolbar_cadastro"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Algoritimo de escalonamento:"/>
-
-    <Spinner
-        android:id="@+id/spinner_algoritimo"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@+id/tv_algoritimo"
-        android:background="@drawable/bg_border"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-
-    </Spinner>
-
-    <TextView
-        android:id="@+id/tv_conf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:layout_below="@+id/spinner_algoritimo"
-        android:layout_marginLeft="16dp"
-        android:text="Configurações:"/>
-
     <LinearLayout
-        android:id="@+id/ll_conf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_below="@+id/tv_conf">
-
-        <EditText
-            android:id="@+id/ed_quantum"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:hint="Quantum"
-            android:inputType="numberDecimal"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/ed_sobrecarga"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="16dp"
-            android:hint="T. Sobrecarga"
-            android:inputType="numberDecimal"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_processos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_conf"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="16dp"
-        android:text="Processos:"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_processos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_below="@+id/tv_processos">
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_cadastro"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/bt_iniciar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:text="INICIAR"/>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/tv_algoritimo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Algoritimo de escalonamento:"/>
+
+        <Spinner
+            android:id="@+id/spinner_algoritimo"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_border"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/tv_conf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_marginLeft="16dp"
+            android:text="Configurações:"/>
+
+        <LinearLayout
+            android:id="@+id/ll_conf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/tv_conf">
+
+            <EditText
+                android:id="@+id/ed_quantum"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="Quantum"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/ed_sobrecarga"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:hint="T. Sobrecarga"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_processos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_conf"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:text="Processos:"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_processos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/tv_processos">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fb_add"

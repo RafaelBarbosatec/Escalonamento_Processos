@@ -8,7 +8,9 @@ import android.os.Parcelable;
  */
 
 public class ItemTimeLine implements Parcelable {
+
     private int position;
+    private int tempo_inicio;
     private int tempo_chegada;
     private int tempo;
     private int sobrecarga = 0;
@@ -19,6 +21,14 @@ public class ItemTimeLine implements Parcelable {
 
     public void setTempo_chegada(int tempo_chegada) {
         this.tempo_chegada = tempo_chegada;
+    }
+
+    public int getTempo_inicio() {
+        return tempo_inicio;
+    }
+
+    public void setTempo_inicio(int tempo_inicio) {
+        this.tempo_inicio = tempo_inicio;
     }
 
     public int getPosition() {
@@ -54,6 +64,7 @@ public class ItemTimeLine implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.position);
+        dest.writeInt(this.tempo_inicio);
         dest.writeInt(this.tempo_chegada);
         dest.writeInt(this.tempo);
         dest.writeInt(this.sobrecarga);
@@ -64,12 +75,13 @@ public class ItemTimeLine implements Parcelable {
 
     protected ItemTimeLine(Parcel in) {
         this.position = in.readInt();
+        this.tempo_inicio = in.readInt();
         this.tempo_chegada = in.readInt();
         this.tempo = in.readInt();
         this.sobrecarga = in.readInt();
     }
 
-    public static final Parcelable.Creator<ItemTimeLine> CREATOR = new Parcelable.Creator<ItemTimeLine>() {
+    public static final Creator<ItemTimeLine> CREATOR = new Creator<ItemTimeLine>() {
         @Override
         public ItemTimeLine createFromParcel(Parcel source) {
             return new ItemTimeLine(source);

@@ -78,8 +78,8 @@ public class TimeLineView extends LinearLayout {
     public void addProcesso(final ItemTimeLine itemTimeLine, final TimeProcessoListern timeProcessoListern){
 
         int margemTop = itemTimeLine.getPosition()*60;
-        final int time = (itemTimeLine.getTempo()+ itemTimeLine.getSobrecarga()+(itemTimeLine.getTempo_chegada() - (countLine-1)))*1000;
-        final int timeAntSobrecarga = (time - ((itemTimeLine.getTempo()+(itemTimeLine.getTempo_chegada() - (countLine-1)))*1000));
+        final int time = (itemTimeLine.getTempo()+ itemTimeLine.getSobrecarga()+(itemTimeLine.getTempo_inicio() - (countLine-1)))*1000;
+        final int timeAntSobrecarga = (time - ((itemTimeLine.getTempo()+(itemTimeLine.getTempo_inicio() - (countLine-1)))*1000));
 
         linha = inflater.inflate(R.layout.item_linha, null);
         paramLinha = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
@@ -104,7 +104,7 @@ public class TimeLineView extends LinearLayout {
             public void onTick(long l) {
 
                 int timeAtual = countLine-1;
-                if (itemTimeLine.getTempo_chegada() <= timeAtual) {
+                if (itemTimeLine.getTempo_inicio() <= timeAtual) {
                     if (l >= timeAntSobrecarga) {
                         tv_tempo.setWidth(tv_tempo.getWidth() + 5);
                     } else {

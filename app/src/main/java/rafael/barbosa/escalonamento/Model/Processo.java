@@ -9,10 +9,19 @@ import android.support.annotation.NonNull;
 public class Processo implements Comparable<Processo>{
 
     private String nome;
+    private int position;
     private int t_chegada = 0;
     private int t_execucao = 0;
     private int deadline = 0;
     private int prioridade = 0;
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public String getNome() {
         return nome;
@@ -66,5 +75,16 @@ public class Processo implements Comparable<Processo>{
         else {
             return 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Processo{" +
+                "nome='" + nome + '\'' +
+                ", t_chegada=" + t_chegada +
+                ", t_execucao=" + t_execucao +
+                ", deadline=" + deadline +
+                ", prioridade=" + prioridade +
+                '}';
     }
 }

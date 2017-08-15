@@ -12,11 +12,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,8 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
     private EditText ed_quantum, ed_sobrecarga;
     private Spinner spinner_algoritimo;
     private ProcessoAdapter processoAdapter;
+    private LinearLayout ll_conf;
+    private TextView tv_conf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,9 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     private void iniciarViews() {
 
+        ll_conf = (LinearLayout) findViewById(R.id.ll_conf);
+        tv_conf = (TextView) findViewById(R.id.tv_conf);
+
         List<String> list = new ArrayList<String>();
         list.add("FIFO");
         list.add("SJF");
@@ -62,6 +71,23 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
         spinner_algoritimo = (Spinner) findViewById(R.id.spinner_algoritimo);
         spinner_algoritimo.setAdapter(dataAdapter);
+        spinner_algoritimo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0 || i ==1){
+                    ll_conf.setVisibility(View.GONE);
+                    tv_conf.setVisibility(View.GONE);
+                }else {
+                    ll_conf.setVisibility(View.VISIBLE);
+                    tv_conf.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         ed_quantum = (EditText) findViewById(R.id.ed_quantum);
         ed_sobrecarga = (EditText) findViewById(R.id.ed_sobrecarga);
@@ -92,15 +118,22 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
         RespAlgoritimo respAlgoritimo = new RespAlgoritimo();
 
-        if (spinner_algoritimo.getSelectedItemPosition() == 0){
-            respAlgoritimo = Algoritimos.FIFO(processoAdapter.getList());
-        }
+        if (processoAdapter.getItemCount() > 0) {
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putParcelableArrayListExtra("ITENS", (ArrayList<? extends Parcelable>) respAlgoritimo.getItemTimeLines());
-        intent.putExtra("QTD",processoAdapter.getItemCount());
-        intent.putExtra("TURNAROUND",respAlgoritimo.getTurnaround());
-        startActivity(intent);
+            switch (spinner_algoritimo.getSelectedItemPosition()){
+                case 0: respAlgoritimo = Algoritimos.FIFO(processoAdapter.getList()); break;
+                case 1: respAlgoritimo = Algoritimos.SJF(processoAdapter.getList()); break;
+                case 2: Toast.makeText(this,"Descupe, algoritimo ainda não foi implementado",Toast.LENGTH_SHORT).show(); return;
+                case 3: Toast.makeText(this,"Descupe, algoritimo ainda não foi implementado",Toast.LENGTH_SHORT).show(); return;
+                default: return;
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putParcelableArrayListExtra("ITENS", (ArrayList<? extends Parcelable>) respAlgoritimo.getItemTimeLines());
+            intent.putExtra("QTD", processoAdapter.getItemCount());
+            intent.putExtra("TURNAROUND", respAlgoritimo.getTurnaround());
+            startActivity(intent);
+        }
     }
 
     private void dialogAddProcesso(){
@@ -145,6 +178,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                     processo.setPrioridade(Integer.parseInt(prioridade));
 
                 processo.setNome(Funcoes.generateNome(processoAdapter.getItemCount()));
+                processo.setPosition(processoAdapter.getItemCount()+1);
                 processoAdapter.addListaItem(processo,processoAdapter.getItemCount());
                 dialog.dismiss();
 
