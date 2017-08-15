@@ -18,7 +18,8 @@
             android:id="@+id/toolbar_cadastro"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:elevation="4dp">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

@@ -12,8 +12,7 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity
-            android:name=".Cadastro.CadastroActivity"
-            android:theme="@style/AppCompat.TelaCheia">
+            android:name=".Cadastro.CadastroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
