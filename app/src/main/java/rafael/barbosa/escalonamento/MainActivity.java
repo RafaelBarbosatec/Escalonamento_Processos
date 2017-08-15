@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TimeLineView timeLine;
     private int qtd;
+    private double turnaround;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             if (extras != null){
                 itemTimeLineList = extras.getParcelableArrayList("ITENS");
                 qtd = extras.getInt("QTD",0);
+                turnaround = extras.getDouble("TURNAROUND");
             }
         }
 

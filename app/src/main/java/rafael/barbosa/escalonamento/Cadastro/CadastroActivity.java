@@ -24,6 +24,7 @@ import java.util.List;
 import rafael.barbosa.escalonamento.MainActivity;
 import rafael.barbosa.escalonamento.Model.ItemTimeLine;
 import rafael.barbosa.escalonamento.Model.Processo;
+import rafael.barbosa.escalonamento.Model.RespAlgoritimo;
 import rafael.barbosa.escalonamento.R;
 import rafael.barbosa.escalonamento.adapters.ProcessoAdapter;
 import rafael.barbosa.escalonamento.util.Algoritimos;
@@ -87,15 +88,17 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     private void iniciarAlgoritimo() {
 
-        List<ItemTimeLine> itemTimeLines = new ArrayList<>();
+        RespAlgoritimo respAlgoritimo = new RespAlgoritimo();
 
         if (spinner_algoritimo.getSelectedItemPosition() == 0){
-            itemTimeLines = Algoritimos.FIFO(processoAdapter.getList());
+            respAlgoritimo = Algoritimos.FIFO(processoAdapter.getList());
+
         }
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putParcelableArrayListExtra("ITENS", (ArrayList<? extends Parcelable>) itemTimeLines);
+        intent.putParcelableArrayListExtra("ITENS", (ArrayList<? extends Parcelable>) respAlgoritimo.getItemTimeLines());
         intent.putExtra("QTD",processoAdapter.getItemCount());
+        intent.putExtra("TURNAROUND",respAlgoritimo.getTurnaround());
         startActivity(intent);
     }
 
