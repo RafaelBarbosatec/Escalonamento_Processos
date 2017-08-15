@@ -32,6 +32,8 @@ import rafael.barbosa.escalonamento.util.Funcoes;
 
 public class CadastroActivity extends AppCompatActivity implements ProcessoAdapter.ProcessoClickListern {
 
+    public static int QUANTUM = 0;
+    public static int SOBRECARGA = 0;
     private Button bt_iniciar;
     private FloatingActionButton fb_add;
     private RecyclerView recycler_processos;
@@ -92,7 +94,6 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
         if (spinner_algoritimo.getSelectedItemPosition() == 0){
             respAlgoritimo = Algoritimos.FIFO(processoAdapter.getList());
-
         }
 
         Intent intent = new Intent(this, MainActivity.class);
