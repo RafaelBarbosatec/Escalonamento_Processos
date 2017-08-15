@@ -62,13 +62,15 @@ public class ProcessoAdapter extends RecyclerView.Adapter<ProcessoAdapter.MyView
     @Override
     public int getItemCount() {
         int n = mlist.size();
-
-
         return n;
     }
 
     public List<Processo> getList(){
         return mlist;
+    }
+
+    public Processo getItem(int position){
+        return mlist.get(position);
     }
 
     public void addListaItem(Processo p,int position) {

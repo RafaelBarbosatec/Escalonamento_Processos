@@ -128,6 +128,7 @@ public class Algoritimos {
 
         int aux_processo = 0;
         int itens_rodada = calcularQtdItens(mProcessoList);
+        Log.i("LOG","itens_rodada: "+itens_rodada);
 
         int t_chegada_aux= mProcessoList.get(0).getT_chegada();
 
@@ -178,12 +179,8 @@ public class Algoritimos {
 
             }else if (mProcessoList.get(aux_processo).getT_execucao() == 0){
 
-                int ant = aux_processo-1;
-                aux_processo = (ant) % mProcessoList.size();
-
-                if (aux_processo == -1){
-                    aux_processo = mProcessoList.size()-1;
-                }
+                int prox = aux_processo+1;
+                aux_processo = (prox) % mProcessoList.size();
 
             }
 

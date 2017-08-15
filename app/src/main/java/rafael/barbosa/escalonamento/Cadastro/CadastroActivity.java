@@ -1,15 +1,18 @@
 package rafael.barbosa.escalonamento.Cadastro;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -38,6 +41,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     public static int QUANTUM = 3;
     public static int SOBRECARGA = 1;
+    private Toolbar toolbar_cadastro;
     private Button bt_iniciar;
     private FloatingActionButton fb_add;
     private RecyclerView recycler_processos;
@@ -45,7 +49,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
     private Spinner spinner_algoritimo;
     private ProcessoAdapter processoAdapter;
     private LinearLayout ll_conf;
-    private TextView tv_conf;
+    private TextView tv_conf, tv_empty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     private void iniciarViews() {
 
+        tv_empty = (TextView) findViewById(R.id.tv_empty);
         ll_conf = (LinearLayout) findViewById(R.id.ll_conf);
         tv_conf = (TextView) findViewById(R.id.tv_conf);
 
@@ -188,6 +193,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                 processo.setNome(Funcoes.generateNome(processoAdapter.getItemCount()));
                 processo.setPosition(processoAdapter.getItemCount()+1);
                 processoAdapter.addListaItem(processo,processoAdapter.getItemCount());
+                tv_empty.setVisibility(View.INVISIBLE);
                 dialog.dismiss();
 
             }
@@ -197,7 +203,24 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
     }
 
     @Override
-    public void processoClicked(int position) {
-
+    public void processoClicked(final int position) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Deseja excluir processo : "+processoAdapter.getItem(position).getNome());
+        alertDialogBuilder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                processoAdapter.removeListItem(position);
+                if (processoAdapter.getItemCount() == 0){
+                    tv_empty.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        alertDialogBuilder.setNegativeButton("NÂO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialogBuilder.show();
     }
 }

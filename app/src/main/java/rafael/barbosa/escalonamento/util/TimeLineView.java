@@ -156,16 +156,18 @@ public class TimeLineView extends LinearLayout {
         this.itemTimeLineList = itemTimeLineList;
     }
 
-    public void startSequencia(){
+    public void startSequencia(final TimeProcessoListern timeProcessoListern){
         if (aux_sequencia < itemTimeLineList.size()){
             ItemTimeLine p = itemTimeLineList.get(aux_sequencia);
             aux_sequencia++;
             addProcesso(p, new TimeProcessoListern() {
                 @Override
                 public void finish() {
-                    startSequencia();
+                    startSequencia(timeProcessoListern);
                 }
             });
+        }else {
+            timeProcessoListern.finish();
         }
 
     }
