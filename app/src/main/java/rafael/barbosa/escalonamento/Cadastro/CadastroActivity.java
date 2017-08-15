@@ -36,8 +36,8 @@ import rafael.barbosa.escalonamento.util.Funcoes;
 
 public class CadastroActivity extends AppCompatActivity implements ProcessoAdapter.ProcessoClickListern {
 
-    public static int QUANTUM = 0;
-    public static int SOBRECARGA = 0;
+    public static int QUANTUM = 3;
+    public static int SOBRECARGA = 1;
     private Button bt_iniciar;
     private FloatingActionButton fb_add;
     private RecyclerView recycler_processos;
@@ -64,8 +64,8 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
         List<String> list = new ArrayList<String>();
         list.add("FIFO");
         list.add("SJF");
+        list.add("ROUND ROBIN");
         list.add("PRIORIDADE");
-        list.add("ROBIN");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
 
@@ -103,6 +103,14 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
         bt_iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String quantum = ed_quantum.getText().toString().trim();
+                if (!quantum.equals(""))
+                QUANTUM = Integer.parseInt(quantum);
+
+                String sobrecarga = ed_sobrecarga.getText().toString().trim();
+                if (!sobrecarga.equals(""))
+                    SOBRECARGA = Integer.parseInt(sobrecarga);
+
                 iniciarAlgoritimo();
             }
         });
@@ -123,7 +131,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
             switch (spinner_algoritimo.getSelectedItemPosition()){
                 case 0: respAlgoritimo = Algoritimos.FIFO(processoAdapter.getList()); break;
                 case 1: respAlgoritimo = Algoritimos.SJF(processoAdapter.getList()); break;
-                case 2: Toast.makeText(this,"Descupe, algoritimo ainda não foi implementado",Toast.LENGTH_SHORT).show(); return;
+                case 2: respAlgoritimo = Algoritimos.ROUND_ROBIN(processoAdapter.getList()); break;
                 case 3: Toast.makeText(this,"Descupe, algoritimo ainda não foi implementado",Toast.LENGTH_SHORT).show(); return;
                 default: return;
             }

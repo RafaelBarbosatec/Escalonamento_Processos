@@ -92,4 +92,15 @@ public class ItemTimeLine implements Parcelable {
             return new ItemTimeLine[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "ItemTimeLine{" +
+                "position=" + position +
+                ", tempo_inicio=" + tempo_inicio +
+                ", tempo_chegada=" + tempo_chegada +
+                ", tempo=" + tempo +
+                ", sobrecarga=" + sobrecarga +
+                '}';
+    }
 }
