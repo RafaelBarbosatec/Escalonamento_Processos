@@ -126,6 +126,8 @@ public class Algoritimos {
 
         Collections.sort(mProcessoList);
 
+        int soma_times_turnaround = 0;
+
         int aux_processo = 0;
         int itens_rodada = calcularQtdItens(mProcessoList);
         Log.i("LOG","itens_rodada: "+itens_rodada);
@@ -158,6 +160,7 @@ public class Algoritimos {
                 time_executado = p.getT_execucao();
                 itemTimeLine.setTempo(p.getT_execucao());
                 p.setT_execucao(0);
+                soma_times_turnaround +=((t_chegada_aux - p.getT_chegada())+time_executado);
             }
 
             mProcessoList.set(aux_processo,p);
@@ -187,7 +190,8 @@ public class Algoritimos {
         }
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
-        respAlgoritimo.setTurnaround(0);
+        double turnaround = (double)soma_times_turnaround/processosList.size();
+        respAlgoritimo.setTurnaround(turnaround);
 
         return respAlgoritimo;
     }
