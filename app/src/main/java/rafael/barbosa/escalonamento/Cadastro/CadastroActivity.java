@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -26,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import rafael.barbosa.escalonamento.MainActivity;
@@ -71,8 +74,8 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
         list.add("SJF");
         list.add("ROUND ROBIN");
         list.add("PRIORIDADE");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
+        list.add("EDF");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,R.layout.simple_spinner_item_custom, list);
 
         spinner_algoritimo = (Spinner) findViewById(R.id.spinner_algoritimo);
         spinner_algoritimo.setAdapter(dataAdapter);
@@ -136,13 +139,17 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
         RespAlgoritimo respAlgoritimo = new RespAlgoritimo();
 
+        List<Processo> processoListAux = new LinkedList<>(processoAdapter.getList());
+
+        Log.i("LOG","A: "+processoListAux.size());
+
         if (processoAdapter.getItemCount() > 0) {
 
             switch (spinner_algoritimo.getSelectedItemPosition()){
-                case 0: respAlgoritimo = Algoritimos.FIFO(processoAdapter.getList()); break;
-                case 1: respAlgoritimo = Algoritimos.SJF(processoAdapter.getList()); break;
-                case 2: respAlgoritimo = Algoritimos.ROUND_ROBIN(processoAdapter.getList()); break;
-                case 3: Toast.makeText(this,"Descupe, algoritimo ainda não foi implementado",Toast.LENGTH_SHORT).show(); return;
+                case 0: respAlgoritimo = Algoritimos.FIFO(processoListAux); break;
+                case 1: respAlgoritimo = Algoritimos.SJF(processoListAux); break;
+                case 2: respAlgoritimo = Algoritimos.ROUND_ROBIN(processoListAux); break;
+                case 3: respAlgoritimo = Algoritimos.PRIORIDADE(processoListAux); break;
                 default: return;
             }
 
