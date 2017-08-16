@@ -56,7 +56,6 @@ public class Algoritimos {
         }
 
         double turnaround = calcularTurnaround(timesToTurnaround);
-        Log.i("LOG","TURNAROUND: "+turnaround);
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
         respAlgoritimo.setTurnaround(turnaround);
@@ -87,6 +86,8 @@ public class Algoritimos {
             }
         });
 
+        Collections.sort(processosList);
+
         int total_time = 0;
 
         int t_chegada_aux= processosList.get(0).getT_chegada();
@@ -115,7 +116,6 @@ public class Algoritimos {
         }
 
         double turnaround = calcularTurnaround(timesToTurnaround);
-        Log.i("LOG","TURNAROUND: "+turnaround);
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
         respAlgoritimo.setTurnaround(turnaround);
@@ -137,7 +137,6 @@ public class Algoritimos {
 
         int aux_processo = 0;
         int itens_rodada = calcularQtdItens(processosList);
-        Log.i("LOG","itens_rodada: "+itens_rodada);
 
         int t_chegada_aux= processosList.get(0).getT_chegada();
 
@@ -181,7 +180,6 @@ public class Algoritimos {
                 t_chegada_aux = t_chegada_aux + time_executado;
             }
 
-            Log.i("LOG","time_executado: "+time_executado);
             itemTimeLines.add(itemTimeLine);
 
             aux_processo = (aux_processo+1) % processosList.size();
@@ -222,7 +220,6 @@ public class Algoritimos {
                     }
                 }
 
-                Log.i("LOG","EXE: ("+aux_processo+")"+processosList.get(aux_processo).getT_execucao());
             }
 
         }
@@ -232,7 +229,6 @@ public class Algoritimos {
         respAlgoritimo.setTurnaround(turnaround);
 
         return respAlgoritimo;
-
     }
 
     private static int calcularQtdItens(List<Processo> processosList) {
@@ -248,6 +244,7 @@ public class Algoritimos {
     }
 
     private static double calcularTurnaround(List<Integer> integerLis){
+
         double total = 0;
 
         for (int i : integerLis){
@@ -255,5 +252,6 @@ public class Algoritimos {
         }
 
         return total/integerLis.size();
+
     }
 }
