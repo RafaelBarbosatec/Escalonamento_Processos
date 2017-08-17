@@ -150,6 +150,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                 case 1: respAlgoritimo = Algoritimos.SJF(processoListAux); nomeAlgoritimo = "SJF"; break;
                 case 2: respAlgoritimo = Algoritimos.ROUND_ROBIN(processoListAux); nomeAlgoritimo = "ROUND ROBIN"; break;
                 case 3: respAlgoritimo = Algoritimos.PRIORIDADE(processoListAux); nomeAlgoritimo = "PRIORIDADE"; break;
+                case 4: respAlgoritimo = Algoritimos.EDF(processoListAux); nomeAlgoritimo = "EDF"; break;
                 default: return;
             }
 
@@ -217,25 +218,9 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     @Override
     public void processoClicked(final int position) {
-       /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Deseja excluir processo : "+processoAdapter.getItem(position).getNome());
-        alertDialogBuilder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                processoAdapter.removeListItem(position);
-                if (processoAdapter.getItemCount() == 0){
-                    tv_empty.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-        alertDialogBuilder.setNegativeButton("NÂO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        alertDialogBuilder.show();*/
+
         dialogEditarProcesso(position);
+
     }
 
     private void dialogEditarProcesso(final int position){
@@ -303,6 +288,8 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                     processo.setPrioridade(Integer.parseInt(prioridade));
 
                 processo.setNome(processoAdapter.getItem(position).getNome());
+                processo.setPosition(processoAdapter.getItem(position).getPosition());
+
                 processoAdapter.editProcesso(processo,position);
                 tv_empty.setVisibility(View.INVISIBLE);
                 dialog.dismiss();
