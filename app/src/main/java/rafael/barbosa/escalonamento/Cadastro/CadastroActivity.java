@@ -217,7 +217,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     @Override
     public void processoClicked(final int position) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+       /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Deseja excluir processo : "+processoAdapter.getItem(position).getNome());
         alertDialogBuilder.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
             @Override
@@ -234,6 +234,82 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                 dialogInterface.dismiss();
             }
         });
-        alertDialogBuilder.show();
+        alertDialogBuilder.show();*/
+        dialogEditarProcesso(position);
+    }
+
+    private void dialogEditarProcesso(final int position){
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_animation;
+
+        Button bt_adicionar = dialog.findViewById(R.id.bt_adicionar);
+        bt_adicionar.setText("EDITAR");
+
+        Button bt_excluir = dialog.findViewById(R.id.bt_excluir);
+        bt_excluir.setVisibility(View.VISIBLE);
+
+        final EditText ed_t_chegada = dialog.findViewById(R.id.ed_t_chegada);
+        final EditText ed_t_exe = dialog.findViewById(R.id.ed_t_exe);
+        final EditText ed_deadline = dialog.findViewById(R.id.ed_deadline);
+        final EditText ed_prioridade = dialog.findViewById(R.id.ed_prioridade);
+
+        ed_t_chegada.setText(processoAdapter.getItem(position).getT_chegada()+"");
+        ed_t_exe.setText(processoAdapter.getItem(position).getT_execucao()+"");
+        ed_deadline.setText(processoAdapter.getItem(position).getDeadline()+"");
+        ed_prioridade.setText(processoAdapter.getItem(position).getPrioridade()+"");
+
+        bt_excluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                processoAdapter.removeListItem(position);
+                if (processoAdapter.getItemCount() == 0){
+                    tv_empty.setVisibility(View.VISIBLE);
+                }
+
+                dialog.dismiss();
+            }
+        });
+
+        bt_adicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String t_chegada = ed_t_chegada.getText().toString().trim();
+                if (t_chegada.equals("")){
+                    ed_t_chegada.setError("Campo Obrigatório");
+                    return;
+                }
+
+                String t_exe = ed_t_exe.getText().toString().trim();
+                if (t_exe.equals("")){
+                    ed_t_exe.setError("Campo Obrigatório");
+                    return;
+                }
+
+                Processo processo = new Processo();
+                processo.setT_chegada(Integer.parseInt(t_chegada));
+                processo.setT_execucao(Integer.parseInt(t_exe));
+
+                String deadline = ed_deadline.getText().toString().trim();
+                if (!deadline.equals(""))
+                    processo.setDeadline(Integer.parseInt(deadline));
+
+                String prioridade = ed_prioridade.getText().toString().trim();
+                if (!prioridade.equals(""))
+                    processo.setPrioridade(Integer.parseInt(prioridade));
+
+                processo.setNome(processoAdapter.getItem(position).getNome());
+                processoAdapter.editProcesso(processo,position);
+                tv_empty.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
+
+            }
+        });
+
+        dialog.show();
     }
 }

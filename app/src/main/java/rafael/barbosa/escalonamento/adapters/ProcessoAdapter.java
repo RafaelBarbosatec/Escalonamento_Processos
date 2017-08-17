@@ -79,6 +79,11 @@ public class ProcessoAdapter extends RecyclerView.Adapter<ProcessoAdapter.MyView
 
     }
 
+    public void editProcesso(Processo processo, int position){
+        mlist.set(position,processo);
+        notifyDataSetChanged();
+    }
+
     public void replaceData(List<Processo> playerCampos){
         mlist = playerCampos;
         notifyDataSetChanged();
