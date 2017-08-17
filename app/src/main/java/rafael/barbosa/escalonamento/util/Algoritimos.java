@@ -48,7 +48,7 @@ public class Algoritimos {
             itemTimeLine.setTempo(p.getT_execucao());
 
             total_time +=((t_chegada_aux - p.getT_chegada())+p.getT_execucao());
-            timesToTurnaround.add(total_time);
+            //timesToTurnaround.add(total_time);
 
             itemTimeLines.add(itemTimeLine);
             t_chegada_aux = t_chegada_aux + p.getT_execucao();
@@ -58,7 +58,7 @@ public class Algoritimos {
         double turnaround = calcularTurnaround(timesToTurnaround,processosList.size());
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
-        respAlgoritimo.setTurnaround(turnaround);
+        respAlgoritimo.setTurnaround((double) total_time/processosList.size());
         return respAlgoritimo;
 
     }
@@ -91,9 +91,68 @@ public class Algoritimos {
 
         int total_time = 0;
 
+        int aux_processo = 0;
+
+        int itens_rodada = processosList.size();
+
         int t_chegada_aux= processosList.get(0).getT_chegada();
 
-        for (Processo p : processosList) {
+        for (int i = 0; i < itens_rodada; i ++){
+
+            Processo p = processosList.get(aux_processo);
+            ItemTimeLine itemTimeLine = new ItemTimeLine();
+            itemTimeLine.setPosition(p.getPosition());
+
+            if (t_chegada_aux > p.getT_chegada()) {
+                itemTimeLine.setTempo_inicio(t_chegada_aux);
+            }else {
+                t_chegada_aux = p.getT_chegada();
+                itemTimeLine.setTempo_inicio(p.getT_chegada());
+            }
+
+            int tempo_executado = p.getT_execucao();
+
+            itemTimeLine.setTempo_chegada(p.getT_chegada());
+            itemTimeLine.setTempo(p.getT_execucao());
+
+            p.setT_execucao(0);
+            processosList.set(aux_processo,p);
+
+            total_time +=((t_chegada_aux - p.getT_chegada())+tempo_executado);
+            //timesToTurnaround.add(total_time);
+
+            itemTimeLines.add(itemTimeLine);
+            t_chegada_aux = t_chegada_aux + tempo_executado;
+
+            aux_processo = (aux_processo + 1) % processosList.size();
+
+            int max_pri = aux_processo;
+
+            int aux_prox = aux_processo;
+
+            for(int j = 0; j< processosList.size(); j++) {
+
+                if (processosList.get(aux_prox).getT_chegada() <= t_chegada_aux
+                        && processosList.get(aux_prox).getT_execucao() <
+                        processosList.get(max_pri).getT_execucao()
+                        && processosList.get(aux_prox).getT_execucao() != 0
+                        || processosList.get(max_pri).getT_execucao() == 0){
+
+                    max_pri = aux_prox;
+
+                }
+
+                aux_prox = (aux_prox + 1) % processosList.size();
+
+            }
+
+            aux_processo = max_pri;
+
+            Log.i("LOG","AUX: "+aux_processo);
+
+        }
+
+       /* for (Processo p : processosList) {
 
             ItemTimeLine itemTimeLine = new ItemTimeLine();
             itemTimeLine.setPosition(p.getPosition());
@@ -109,17 +168,17 @@ public class Algoritimos {
             itemTimeLine.setTempo(p.getT_execucao());
 
             total_time +=((t_chegada_aux - p.getT_chegada())+p.getT_execucao());
-            timesToTurnaround.add(total_time);
+            //timesToTurnaround.add(total_time);
 
             itemTimeLines.add(itemTimeLine);
             t_chegada_aux = t_chegada_aux + p.getT_execucao();
 
-        }
+        }*/
 
         double turnaround = calcularTurnaround(timesToTurnaround,processosList.size());
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
-        respAlgoritimo.setTurnaround(turnaround);
+        respAlgoritimo.setTurnaround((double) total_time/processosList.size());
 
         return respAlgoritimo;
     }
@@ -183,7 +242,7 @@ public class Algoritimos {
             // Soma dos tempos ao terminar processo
             if (p.getT_execucao() == 0){
                 soma_times_turnaround +=(t_chegada_aux - p.getT_chegada());
-                timesToTurnaround.add(soma_times_turnaround);
+               // timesToTurnaround.add(soma_times_turnaround);
             }
 
             itemTimeLines.add(itemTimeLine);
@@ -232,7 +291,7 @@ public class Algoritimos {
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
         double turnaround = calcularTurnaround(timesToTurnaround,processosList.size());
-        respAlgoritimo.setTurnaround(turnaround);
+        respAlgoritimo.setTurnaround((double)soma_times_turnaround/processosList.size());
 
         return respAlgoritimo;
     }
@@ -311,7 +370,7 @@ public class Algoritimos {
             // Soma dos tempos ao terminar processo
             if (p.getT_execucao() == 0){
                 soma_times_turnaround +=(t_chegada_aux - p.getT_chegada());
-                timesToTurnaround.add(soma_times_turnaround);
+                //timesToTurnaround.add(soma_times_turnaround);
             }
 
             itemTimeLines.add(itemTimeLine);
@@ -395,7 +454,7 @@ public class Algoritimos {
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
         double turnaround = calcularTurnaround(timesToTurnaround,processosList.size());
-        respAlgoritimo.setTurnaround(turnaround);
+        respAlgoritimo.setTurnaround((double)soma_times_turnaround/processosList.size());
 
         return respAlgoritimo;
     }
@@ -474,7 +533,7 @@ public class Algoritimos {
             // Soma dos tempos ao terminar processo
             if (p.getT_execucao() == 0){
                 soma_times_turnaround +=(t_chegada_aux - p.getT_chegada());
-                timesToTurnaround.add(soma_times_turnaround);
+               // timesToTurnaround.add(soma_times_turnaround);
             }
 
             itemTimeLines.add(itemTimeLine);
@@ -558,7 +617,7 @@ public class Algoritimos {
 
         respAlgoritimo.setItemTimeLines(itemTimeLines);
         double turnaround = calcularTurnaround(timesToTurnaround,processosList.size());
-        respAlgoritimo.setTurnaround(turnaround);
+        respAlgoritimo.setTurnaround((double) soma_times_turnaround / processosList.size());
 
         return respAlgoritimo;
 
