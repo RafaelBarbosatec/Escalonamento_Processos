@@ -7,10 +7,20 @@
     android:layout_height="match_parent"
     tools:context="rafael.barbosa.escalonamento.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_simulator"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
+
     <rafael.barbosa.escalonamento.util.TimeLineView
         android:id="@+id/timeLine"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_simulator"
         >
 
     </rafael.barbosa.escalonamento.util.TimeLineView>

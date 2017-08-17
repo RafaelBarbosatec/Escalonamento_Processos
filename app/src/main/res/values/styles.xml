@@ -15,7 +15,7 @@
     </style>
 
     <style name="AppCompat.TelaCheia" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@color/colorSplash</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 

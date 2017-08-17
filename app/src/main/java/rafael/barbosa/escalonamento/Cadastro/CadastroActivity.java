@@ -141,15 +141,15 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
         List<Processo> processoListAux = new LinkedList<>(processoAdapter.getList());
 
-        Log.i("LOG","A: "+processoListAux.size());
+        String nomeAlgoritimo = "";
 
         if (processoAdapter.getItemCount() > 0) {
 
             switch (spinner_algoritimo.getSelectedItemPosition()){
-                case 0: respAlgoritimo = Algoritimos.FIFO(processoListAux); break;
-                case 1: respAlgoritimo = Algoritimos.SJF(processoListAux); break;
-                case 2: respAlgoritimo = Algoritimos.ROUND_ROBIN(processoListAux); break;
-                case 3: respAlgoritimo = Algoritimos.PRIORIDADE(processoListAux); break;
+                case 0: respAlgoritimo = Algoritimos.FIFO(processoListAux); nomeAlgoritimo = "FIFO"; break;
+                case 1: respAlgoritimo = Algoritimos.SJF(processoListAux); nomeAlgoritimo = "SJF"; break;
+                case 2: respAlgoritimo = Algoritimos.ROUND_ROBIN(processoListAux); nomeAlgoritimo = "ROUND ROBIN"; break;
+                case 3: respAlgoritimo = Algoritimos.PRIORIDADE(processoListAux); nomeAlgoritimo = "PRIORIDADE"; break;
                 default: return;
             }
 
@@ -157,6 +157,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
             intent.putParcelableArrayListExtra("ITENS", (ArrayList<? extends Parcelable>) respAlgoritimo.getItemTimeLines());
             intent.putExtra("QTD", processoAdapter.getItemCount());
             intent.putExtra("TURNAROUND", respAlgoritimo.getTurnaround());
+            intent.putExtra("ALGORITIMO", nomeAlgoritimo);
             startActivity(intent);
         }
     }
