@@ -1,4 +1,4 @@
-# Escalonamento_Processos
+# Escalonamento Processos
 
 Aplicativo para fins acabemicos que simula algorítimos de escalonamento:
 
