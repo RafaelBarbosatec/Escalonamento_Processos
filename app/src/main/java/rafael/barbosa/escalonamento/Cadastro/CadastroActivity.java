@@ -121,7 +121,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                     if (!sobrecarga.equals(""))
                         SOBRECARGA = Integer.parseInt(sobrecarga);
 
-                    iniciarAlgoritimo();
+                    iniciarAlgoritimo(processoAdapter.getList());
                 }else {
                     Toast.makeText(CadastroActivity.this,"Limite de 10 processos alcançados",Toast.LENGTH_SHORT).show();
                 }
@@ -135,11 +135,13 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     }
 
-    private void iniciarAlgoritimo() {
+    private void iniciarAlgoritimo(List<Processo> processoList) {
 
-        RespAlgoritimo respAlgoritimo = new RespAlgoritimo();
+        Log.i("LIST","SIZE: "+processoList.size());
 
-        List<Processo> processoListAux = new LinkedList<>(processoAdapter.getList());
+        RespAlgoritimo respAlgoritimo ;
+
+        List<Processo> processoListAux = new ArrayList<>(processoList);
 
         String nomeAlgoritimo = "";
 

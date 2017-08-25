@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import rafael.barbosa.escalonamento.Model.Processo;
 import rafael.barbosa.escalonamento.R;
@@ -66,7 +67,7 @@ public class ProcessoAdapter extends RecyclerView.Adapter<ProcessoAdapter.MyView
     }
 
     public List<Processo> getList(){
-        return mlist;
+        return new ArrayList<>(mlist);
     }
 
     public Processo getItem(int position){
