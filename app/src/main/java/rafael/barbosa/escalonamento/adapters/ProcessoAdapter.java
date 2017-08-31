@@ -67,7 +67,7 @@ public class ProcessoAdapter extends RecyclerView.Adapter<ProcessoAdapter.MyView
     }
 
     public List<Processo> getList(){
-        return new ArrayList<>(mlist);
+        return mlist;
     }
 
     public Processo getItem(int position){

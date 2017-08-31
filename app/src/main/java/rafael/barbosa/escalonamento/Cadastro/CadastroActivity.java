@@ -53,6 +53,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
     private ProcessoAdapter processoAdapter;
     private LinearLayout ll_conf;
     private TextView tv_conf, tv_empty;
+    private List<Processo> processoListAux ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,8 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
     }
 
     private void iniciarViews() {
+
+        processoListAux = new ArrayList<>();
 
         tv_empty = (TextView) findViewById(R.id.tv_empty);
         ll_conf = (LinearLayout) findViewById(R.id.ll_conf);
@@ -121,6 +124,8 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                     if (!sobrecarga.equals(""))
                         SOBRECARGA = Integer.parseInt(sobrecarga);
 
+                    //processoListAux = new ArrayList<>(processoAdapter.getList());
+
                     iniciarAlgoritimo(processoAdapter.getList());
                 }else {
                     Toast.makeText(CadastroActivity.this,"Limite de 10 processos alcançados",Toast.LENGTH_SHORT).show();
@@ -137,11 +142,19 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
     private void iniciarAlgoritimo(List<Processo> processoList) {
 
-        Log.i("LIST","SIZE: "+processoList.size());
+        processoListAux.clear();
+        for (Processo p : processoList){
+            Processo processo = new Processo();
+            processo.setT_execucao(p.getT_execucao());
+            processo.setPosition(p.getPosition());
+            processo.setDeadline(p.getDeadline());
+            processo.setNome(p.getNome());
+            processo.setPrioridade(p.getPrioridade());
+            processo.setT_chegada(p.getT_chegada());
+            processoListAux.add(processo);
+        }
 
         RespAlgoritimo respAlgoritimo ;
-
-        List<Processo> processoListAux = new ArrayList<>(processoList);
 
         String nomeAlgoritimo = "";
 
@@ -208,7 +221,9 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
                 processo.setNome(Funcoes.generateNome(processoAdapter.getItemCount()));
                 processo.setPosition(processoAdapter.getItemCount()+1);
+
                 processoAdapter.addListaItem(processo,processoAdapter.getItemCount());
+
                 tv_empty.setVisibility(View.INVISIBLE);
                 dialog.dismiss();
 
@@ -293,6 +308,7 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
                 processo.setPosition(processoAdapter.getItem(position).getPosition());
 
                 processoAdapter.editProcesso(processo,position);
+
                 tv_empty.setVisibility(View.INVISIBLE);
                 dialog.dismiss();
 
@@ -301,4 +317,5 @@ public class CadastroActivity extends AppCompatActivity implements ProcessoAdapt
 
         dialog.show();
     }
+
 }
